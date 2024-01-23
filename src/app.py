@@ -31,5 +31,15 @@ def max_num_in_list(list):
 
 
 
+# def rm(filename):
+#    os.remove(filename)
+
+'''## Task4
+
+Fix the `rm` function in `src/app.py` so that it will raise a **FileNotFoundError** error if the file does not exist.'''
+
 def rm(filename):
-    os.remove(filename)
+    try:
+        os.remove(filename)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"The file '{filename}' does not exist.")

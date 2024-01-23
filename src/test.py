@@ -93,28 +93,72 @@ class TestApp(unittest.TestCase):
 
 # Section 3 (Unittest Mocking)
 
-'''
-## Task1
+'''## Task1
 Write a test to check if the `rm` function in `src/app.py` will delete a file.'''
-
 
 
 class TestRemoveFunction(unittest.TestCase):
 
-    @patch('os.remove')  # Mock the os.remove function
-    def test_remove_file(self, mock_remove):
-        # Mock the behavior of os.remove to do nothing
-        mock_remove.side_effect = lambda x: None
+    def test_remove_file(self):
+        # Create a temporary file for testing
+        test_filename = "test_file.txt"
+        with open(test_filename, 'w') as test_file:
+            test_file.write("Test content")
 
         # Call the function to remove the file
-        rm("test_file.txt")
+        rm(test_filename)
+
+        # Check that the file has been removed
+        self.assertFalse(os.path.exists(test_filename))
+
+'''## Task2
+
+Write a test to check if the `rm` function in `src/app.py` will call the `os.remove` function if the file exists - without deleting the file. Use `unittest.mock` for this purpose.'''
+
+class TestRemoveFunction(unittest.TestCase):
+
+    @patch('os.remove')  # Mock the os.remove function
+    def test_call_os_remove(self, mock_remove):
+        # Create a temporary file for testing
+        test_filename = "test_file.txt"
+        with open(test_filename, 'w') as test_file:
+            test_file.write("Test content")
+
+        # Call the function to remove the file
+        rm(test_filename)
 
         # Check that os.remove was called with the correct argument
-        mock_remove.assert_called_once_with("test_file.txt")
+        mock_remove.assert_called_once_with(test_filename)
 
+'''## Task3
+Write a test to make sure that the `rm` function in `src/app.py` will **NOT** call the `os.remove` function if the file **DOES NOT** exist. Use `unittest.mock` for this purpose.'''
 
+class TestRemoveFunction(unittest.TestCase):
 
+    @patch('os.remove')  # Mock the os.remove function
+    def test_do_not_call_os_remove(self, mock_remove):
+        # Call the function with a non-existing file
+        rm("non_existing_file.txt")
 
+        # Check that os.remove was not called
+        mock_remove.assert_not_called()
+
+'''## Task4
+Fix the `rm` function in `src/app.py` so that it will raise a **FileNotFoundError** error if the file does not exist.'''
+
+'''## Task5
+Write a test to check if the `rm` function in `src/app.py` will raise a **FileNotFoundError** error if the file **DOES NOT** exist. Use `unittest.mock` for this purpose.'''
+
+class TestRemoveFunction(unittest.TestCase):
+
+    @patch('os.remove')  # Mock the os.remove function
+    def test_raise_file_not_found_error(self, mock_remove):
+        with self.assertRaises(FileNotFoundError):
+            # Call the function with a non-existing file
+            rm("non_existing_file.txt")
+
+        # Check that os.remove was not called
+        mock_remove.assert_not_called()
 
 
 if __name__ == '__main__':
