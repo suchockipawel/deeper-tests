@@ -5,6 +5,12 @@ from random import randrange
 def rnd(start, end):
     return randrange(start, end+1)
 
+
+'''## Task 4
+
+Fix the function `max_num_in_list` in `src/app.py`. It should return the highest number of the list of numbers given as the argument. That way it will pass the test.'''
+
+
 # function should return the greatest number in a list
 #def max_num_in_list( list ):
 #    max = list[ 0 ]
@@ -13,9 +19,6 @@ def rnd(start, end):
 #            max = a
 #    return max
 
-'''## Task 4
-
-Fix the function `max_num_in_list` in `src/app.py`. It should return the highest number of the list of numbers given as the argument. That way it will pass the test.'''
 
 
 def max_num_in_list(list):
@@ -28,15 +31,15 @@ def max_num_in_list(list):
     return max_num
 
 
+'''## Task4
 
+Fix the `rm` function in `src/app.py` so that it will raise a **FileNotFoundError** error if the file does not exist.'''
 
 
 # def rm(filename):
 #    os.remove(filename)
 
-'''## Task4
 
-Fix the `rm` function in `src/app.py` so that it will raise a **FileNotFoundError** error if the file does not exist.'''
 
 def rm(filename):
     try:

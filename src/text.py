@@ -1,3 +1,8 @@
+
+'''Task6
+Fix both functions to_upper and to_word_list_isupper in src/text.py so they will raise a TypeError if the argument was not the right type (string in the case of to_upper and list in the case of to_word_list_upper).'''
+
+
 # function will convert string parameter to upper case
 #def to_upper(str):
 #    return str.upper()
@@ -11,8 +16,6 @@
 #    return True
 
 
-'''Task6
-Fix both functions to_upper and to_word_list_isupper in src/text.py so they will raise a TypeError if the argument was not the right type (string in the case of to_upper and list in the case of to_word_list_upper).'''
 
 def to_upper(input_str):
     if not isinstance(input_str, str):
