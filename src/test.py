@@ -55,7 +55,7 @@ class TestToWordListIsUpperFunction(unittest.TestCase):
 
 # Section 2 (Unittest Basic 2: More Assert Methods)
 
-'''## Task 1 & Task 2
+'''Task 1 & Task 2
 
 Write a test to check if the function `rnd` in `src/app.py` will return the correct value given these arguments: `start = 2` and `end = 20`.
 Write a test to check if the function `rnd` in `src/app.py` will not return an out-of-range value given these arguments: `start = 2` and `end = 20`'''
@@ -74,14 +74,14 @@ class TestRndFunction(unittest.TestCase):
         result = rnd(start, end)
         self.assertFalse(result < start or result > end)
 
-'''## Task 3
+'''Task 3
 What problem is there with testing a method that involves randomized value? Can we be sure that the test passes every time when it has passed once? Add a code comment to the tests of task 1 and 2 about any potential issues with those tests.'''
 
 # When testing methods that involve randomized values, there are certain challenges related to the unpredictability of the output. 
 # The key problem is that the randomness of the 'rnd' function may lead to intermittent test failures, even when the function is working correctly.# Testing random values introduces non-determinism.
 # It's advisable to use statistical methods or multiple runs to gain confidence.
 
-'''## Task 4
+'''Task 4
 
 Fix the function `max_num_in_list` in `src/app.py`. It should return the highest number of the list of numbers given as the argument. That way it will pass the test.'''
 
@@ -93,71 +93,63 @@ class TestApp(unittest.TestCase):
 
 # Section 3 (Unittest Mocking)
 
-'''## Task1
+'''Task1
 Write a test to check if the `rm` function in `src/app.py` will delete a file.'''
 
 
 class TestRemoveFunction(unittest.TestCase):
 
     def test_remove_file(self):
-        # Create a temporary file for testing
         test_filename = "test_file.txt"
         with open(test_filename, 'w') as test_file:
             test_file.write("Test content")
 
-        # Call the function to remove the file
-        rm(test_filename)
+        self.remove_file(test_filename)
 
-        # Check that the file has been removed
         self.assertFalse(os.path.exists(test_filename))
 
-'''## Task2
+
+'''Task2
 
 Write a test to check if the `rm` function in `src/app.py` will call the `os.remove` function if the file exists - without deleting the file. Use `unittest.mock` for this purpose.'''
 
 class TestRemoveFunction(unittest.TestCase):
 
-    @patch('os.remove')  # Mock the os.remove function
+    @patch('os.remove')
     def test_call_os_remove(self, mock_remove):
-        # Create a temporary file for testing
         test_filename = "test_file.txt"
         with open(test_filename, 'w') as test_file:
             test_file.write("Test content")
 
-        # Call the function to remove the file
         rm(test_filename)
 
-        # Check that os.remove was called with the correct argument
         mock_remove.assert_called_once_with(test_filename)
 
-'''## Task3
+'''Task3
 Write a test to make sure that the `rm` function in `src/app.py` will **NOT** call the `os.remove` function if the file **DOES NOT** exist. Use `unittest.mock` for this purpose.'''
 
 class TestRemoveFunction(unittest.TestCase):
 
-    @patch('os.remove')  # Mock the os.remove function
+    @patch('os.remove')  
     def test_do_not_call_os_remove(self, mock_remove):
-        # Call the function with a non-existing file
         rm("non_existing_file.txt")
 
-        # Check that os.remove was not called
         mock_remove.assert_not_called()
 
-'''## Task4
+'''Task4
 Fix the `rm` function in `src/app.py` so that it will raise a **FileNotFoundError** error if the file does not exist.'''
 
-'''## Task5
+'''Task5
 Write a test to check if the `rm` function in `src/app.py` will raise a **FileNotFoundError** error if the file **DOES NOT** exist. Use `unittest.mock` for this purpose.'''
 
 class TestRemoveFunction(unittest.TestCase):
 
-    @patch('os.remove')  # Mock the os.remove function
+    @patch('os.remove')
     def test_raise_file_not_found_error(self, mock_remove):
         with self.assertRaises(FileNotFoundError):
-            # Call the function with a non-existing file
+
             rm("non_existing_file.txt")
 
-        # Check that os.remove was not called
         mock_remove.assert_not_called()
 
 
