@@ -146,11 +146,12 @@ class TestRemoveFunction(unittest.TestCase):
 
     @patch('os.remove')
     def test_raise_file_not_found_error(self, mock_remove):
-        with self.assertRaises(FileNotFoundError):
+        mock_remove.side_effect = FileNotFoundError
 
+        with self.assertRaises(FileNotFoundError):
             rm("non_existing_file.txt")
 
-        mock_remove.assert_not_called()
+        mock_remove.assert_called_once_with("non_existing_file.txt")
 
 
 if __name__ == '__main__':
