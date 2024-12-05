@@ -5,13 +5,44 @@ from random import randrange
 def rnd(start, end):
     return randrange(start, end+1)
 
+
+'''## Task 4
+
+Fix the function `max_num_in_list` in `src/app.py`. It should return the highest number of the list of numbers given as the argument. That way it will pass the test.'''
+
+
 # function should return the greatest number in a list
-def max_num_in_list( list ):
-    max = list[ 0 ]
+#def max_num_in_list( list ):
+#    max = list[ 0 ]
+#    for a in list:
+#        if a < max:
+#            max = a
+#    return max
+
+
+
+def max_num_in_list(list):
+    if not list:
+        return None
+    max_num = list[0]
     for a in list:
-        if a < max:
-            max = a
-    return max
+        if a > max_num:
+            max_num = a
+    return max_num
+
+
+'''## Task4
+
+Fix the `rm` function in `src/app.py` so that it will raise a **FileNotFoundError** error if the file does not exist.'''
+
+
+# def rm(filename):
+#    os.remove(filename)
+
+
 
 def rm(filename):
-    os.remove(filename)
+    try:
+        os.remove(filename)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"The file '{filename}' does not exist.")
